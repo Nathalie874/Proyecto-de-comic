@@ -1,0 +1,1472 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Toonswitch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+
+
+        /* Variables con paletas actualizadas según las especificaciones */
+        :root {
+            /* Paleta 1 - Cyberpunk (para complementos) */
+            --cyber-orange: #FD8326;
+            --cyber-pink: #F59192;
+            --cyber-red: #F4545E;
+            --cyber-dark-red: #D32729;
+            --cyber-purple: #6D2A4F;
+            --cyber-dark: #25091C;
+            
+            /* Paleta 5 - Azul para Matemáticas */
+            --matematicas-dark: #19192E;
+            --matematicas-medium: #003E91;
+            --matematicas-deep: #002063;
+            --matematicas-navy: #041642;
+            --matematicas-light: #27A8FF;
+            
+            /* Paleta 2 - Japonés Rojo para Lengua */
+            --lengua-black: #070709;
+            --lengua-brown: #4B2D2E;
+            --lengua-rust: #824334;
+            --lengua-red: #F42C1D;
+            --lengua-dark-red: #AE1918;
+            --lengua-deep-red: #701C1A;
+
+             /* Paleta 3 - Green Gray para Ciencias Naturales */
+            --naturales-dark: #162936;
+            --naturales-gray: #3B5265;
+            --naturales-neon: #27E9B5;
+            --naturales-deep: #051824;
+            --naturales-light: #4CD9B4;
+            
+            /* Paleta 4 - Turquesa para Ciencias Sociales */
+            --sociales-dark: #222831;
+            --sociales-blue: #283B48;
+            --sociales-turq: #00A6C0;
+            --sociales-beige: #D8D7CE;
+            --sociales-light: #00C8E0;
+            
+            /* Complementos opcionales para Sociales */
+            --sociales-complement-purple: #6D2A4F;
+            --sociales-complement-dark: #25091C;
+            
+            /* Asignación de variables por materia */
+            --matematicas: var(--matematicas-light);
+            --matematicas-dark: var(--matematicas-navy);
+            --lengua: var(--lengua-red);
+            --lengua-dark: var(--lengua-deep-red);
+            --sociales: var(--sociales-turq);
+            --sociales-dark: var(--sociales-blue);
+            --naturales: var(--naturales-neon);
+            --naturales-dark: var(--naturales-deep);
+
+             /* Colores generales */
+            --primary: var(--cyber-orange);
+            --secondary: var(--cyber-pink);
+            --background: var(--matematicas-dark);
+            --card-bg: rgba(25, 25, 46, 0.8);
+            --text-light: #ffffff;
+            --text-dark: #070709;
+        }
+        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body{
+            margin:0;
+            font-family:;
+            background: radial-gradient(1200px 600px at 50% -10%, #1e0b33 0%, rgba(30,11,51,0.6) 35%, rgba(5,7,13,0.2) 60%, #05070d 100%),
+                        linear-gradient(160deg, #0a0f1f 0%, #0d0a18 50%, #05070d 100%);
+            color: white;
+            padding-top: 160px;
+                
+                }
+
+         /* Botones con estilo cómic */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--primary), var(--cyber-red));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(253, 131, 38, 0.4);
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: 3px solid var(--text-light);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(253, 131, 38, 0.6);
+            animation: pulseGlow 1.5s infinite;
+        }
+        
+        .btn-comic-creator {
+            background: linear-gradient(45deg, var(--sociales-complement-purple), var(--lengua-red));
+            font-size: 1.3rem;
+            padding: 15px 30px;
+            margin: 20px 0;
+        }
+
+                
+
+                 .comic-header {
+                        background-color: rgba(25,25,46,0.95);
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        z-index: 1000;
+                        border-bottom: 3px solid #D52A8E;
+                        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+                      }
+
+                      .main-header{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 15px 40px;
+                      }
+
+
+                      .Logo{
+                        width: 120px;
+                        height: auto;
+                        border-radius: 50%;
+                        object-fit: cover;
+                      }
+           
+           .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 5px 10px;
+            width: 300px;
+            border: 2px solid ;
+            border-color: #D52A8E;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:hover {
+            width: 320px;
+            box-shadow: 0 8px 25px rgba(253, 131, 38, 0.3);
+            border-color: var(--naturales-neon);
+        }
+        
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 8px;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+        }
+
+         .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-bar button {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar button:hover {
+            color: var(--naturales-neon);
+            transform: scale(1.2);
+        }
+
+        .search-bar i{
+            color:#D52A8E;
+        }
+
+
+        
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-actions a {
+            font-weight: 700;
+            padding: 8px 15px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .user-actions .sign-in {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .user-actions .sign-in:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+
+         .user-welcome {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, var(--matematicas-medium), var(--sociales-complement-purple));
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 62, 145, 0.4);
+             color: var(--primary);
+        }
+
+         .user-welcome i {
+            color: var(--primary);
+        }
+        
+        
+        .user-welcome span {
+            font-weight: 700;
+        }
+        
+
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--lengua-red);
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            transform: scale(1.2);
+        }
+
+
+         .comic-nav {
+            backdrop-filter: blur(10px);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border-top: 2px solid #D52A8E;
+             border-bottom: 2px solid #D52A8E;
+            }
+
+
+
+
+           .nav-list{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+           }
+
+           .nav-list a {
+            padding: 18px 25px;
+            font-family: 'Bangers';
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            border-bottom: 3px solid transparent;
+           }
+
+         
+    .nav-list > li > a:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #000AD1;
+    border-radius: 6px;
+     }
+
+
+
+           /* Estilo específico para enlaces de materias con nuevos colores */
+        .nav-matematicas + .dropdown-menu a:hover{
+            background: var(-matematicas-light);
+
+        }
+
+        .nav-lengua + .dropdown-menu a:hover{
+            background: var(--lengua-red);
+        }
+
+        .nav-sociales + .dropdown-menu a:hover{
+            background: var(--sociales-turq);
+
+        }
+
+        .nav-naturales + .dropdown-menu a:hover{
+            background: var(--naturales-neon);
+        }
+
+           .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: rgba(7, 7, 9, 0.95);
+            backdrop-filter: blur(15px);
+            min-width: 220px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            border-top: 3px solid var(--primary);
+            animation: fadeIn 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-menu li {
+            width: 100%;
+        }
+       
+        
+        .dropdown-menu a {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1rem;
+            background: transparent;
+        }
+        
+        .dropdown-menu a:hover {
+            background: rgba(253, 131, 38, 0.2);
+            padding-left: 30px;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+
+
+        .hero{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 80px;
+            background: transparent;
+            }
+
+
+    .hero-text {
+      max-width: 50%;
+    }
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 800;
+      animation: slideText 3s ease-in-out infinite alternate,neonText 1.5s ease-in-out infinite alternate;
+    }
+
+        .hero-text p{
+            font-size: 18px;
+            margin: 20px 0 ;
+            font-weight:bold ;
+            text-align: left;
+            position: absolute;
+            width: 100%;
+            bottom: 20px;
+            
+        }
+
+        @keyframes slideText{
+            0%{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            50%{
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+
+            100%{
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+        }
+
+        @keyframes neonText{
+            0%{text-shadow: 0 0 5px #fff,0 0 10px #ff5c5c,0 0 20px #ff5c5c}
+
+             50% { text-shadow: 0 0 10px #fff, 0 0 20px #ff5c5c, 0 0 30px #ff5c5c; }
+          100% { text-shadow: 0 0 5px #fff, 0 0 10px #ff5c5c, 0 0 20px #ff5c5c;}
+           
+           }
+
+        .hero-text .btn-main{
+            background: #ff2d2d;
+            padding: 12px 26px;
+            border: none;
+            font-size: 20px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero img{
+            width: 500px;
+        }
+
+        .hero-section{
+            margin-top: 0 !important;
+
+        }
+
+
+        /* Carousel de tarjetas (Sociales) */
+        /* Sección de bienvenida (video/imagen de portada) */
+        .welcome-video { padding: 24px 40px; }
+        .video-hero {
+            position: relative;
+            height: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+            background: url('Video pantalla principal.jpeg') center/cover no-repeat;
+        }
+        .video-hero .video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 992px) {
+            .video-hero { height: 360px; }
+        }
+        @media (max-width: 576px) {
+            .video-hero { height: 240px; }
+        }
+        .video-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.85) 100%);
+        }
+        .video-hero-content {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 22px 24px;
+            z-index: 2;
+        }
+        .video-hero-title { font-family: 'Bangers', cursive; font-size: 2rem; letter-spacing: 1px; color: #AB5AFF; }
+        .video-hero-sub { color: rgba(255,255,255,0.92); margin-top: 4px; }
+        .quiz-correct { color: #4ade80; }
+        .quiz-incorrect { color: #ff6b6b; }
+        /* Quiz layout */
+        #quizz { display: flex; justify-content: center; padding: 24px 40px; margin-top: 40px; }
+        @media (max-width: 576px) {
+            #sociales-carrusel { margin-bottom: 32px; }
+            #quizz { margin-top: 20px; }
+        }
+        #quizz .quiz-card {
+            width: min(720px, 92vw);
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            transition: transform .2s ease, box-shadow .2s ease, background-color .25s ease;
+            will-change: transform;
+        }
+        #quizz #quizQuestion { font-size: 1.2rem; margin-bottom: 14px; }
+        #quizz .quiz-actions { display: flex; gap: 12px; margin-top: 8px; }
+        #quizz .quiz-actions .btn { flex: 1; padding: 14px 18px; font-size: 1.05rem; border-radius: 10px; }
+        #btnTrue { background: linear-gradient(45deg, #16a34a, #059669); }
+        #btnFalse { background: linear-gradient(45deg, #ef4444, #b81414); }
+        /* Quick feedback animations */
+        .btn-pressed { transform: scale(0.97); }
+        .flash-correct { box-shadow: 0 0 0 2px rgba(74,222,128,.6), 0 16px 40px rgba(0,0,0,0.4); }
+        .flash-incorrect { box-shadow: 0 0 0 2px rgba(255,107,107,.6), 0 16px 40px rgba(0,0,0,0.4); }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            50% { transform: translateX(6px); }
+            75% { transform: translateX(-4px); }
+            100% { transform: translateX(0); }
+        }
+        .shake { animation: shake 180ms ease-in-out; }
+        /* Timeline comic style */
+        #timeline {
+            padding: 40px 40px 60px;
+            margin-top: 56px;
+            background:
+               radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px) 0 0/12px 12px,
+               linear-gradient(135deg, #2b0e3a 0%, #1a0f2b 100%);
+        }
+        .timeline-wrap { position: relative; max-width: 1100px; margin: 0 auto; }
+        .timeline-title { font-family: 'Bangers', cursive; color:#AB5AFF; margin-bottom: 14px; letter-spacing: .5px; }
+        .timeline-svg { width: 100%; height: 340px; display: block; filter: drop-shadow(0 10px 24px rgba(0,0,0,.25)); }
+        .tl-node { cursor: pointer; transition: transform .18s ease, filter .18s ease; }
+        .tl-node:hover { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(255,255,255,.25)); }
+        .tl-label { font-family: 'Bangers', cursive; font-size: 16px; fill: #111; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+        .tl-year { font-weight: 700; font-size: 14px; fill: #ffffff; }
+        .tl-tooltip { position: absolute; min-width: 220px; max-width: 280px; background: rgba(26,15,43,0.96); color:#f5f5f5; border-radius: 10px; padding: 12px 14px; border: 2px solid rgba(171, 90, 255, 0.35); box-shadow: 0 12px 28px rgba(0,0,0,.45); transform: translate(-50%, -115%); pointer-events: none; opacity: 0; transition: opacity .15s ease, transform .2s ease; }
+        .tl-tooltip.show { opacity: 1; transform: translate(-50%, -120%); }
+        .tl-icon { font-size: 18px; }
+        @media (max-width: 768px) {
+          .timeline-svg { height: 380px; }
+          .tl-label { font-size: 15px; }
+        }
+        .cards-carousel {
+            display: flex;
+            gap: 20px;
+            padding: 20px 40px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+        .cards-carousel::-webkit-scrollbar { height: 10px; }
+        .cards-carousel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 6px; }
+        /* Flechas del carrusel */
+        #sociales-carrusel { position: relative; margin-bottom: 72px; }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(171,90,255,0.6);
+            background: rgba(30,11,51,0.6);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            z-index: 5;
+            transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+        }
+        .carousel-arrow:hover { transform: translateY(-50%) scale(1.06); background: rgba(30,11,51,0.85); }
+        .carousel-arrow.prev { left: 8px; }
+        .carousel-arrow.next { right: 8px; }
+        .comic-card {
+            min-width: 320px;
+            max-width: 360px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+            scroll-snap-align: start;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            will-change: transform;
+        }
+        .comic-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.45);
+        }
+        .comic-card img { width: 100%; height: 160px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,0.04); }
+        .comic-card h3 { margin: 12px 0 6px; font-size: 1.1rem; }
+        .comic-card p { font-size: 0.95rem; color: rgba(255,255,255,0.85); }
+        .btn-leer-mas { margin-top: 12px; }
+
+        /* Variante morada nocturna para tarjetas */
+        .comic-card.purple {
+            background: linear-gradient(135deg, #2b0e3a 0%, #1a0f2b 100%);
+            border-color: rgba(171, 90, 255, 0.45);
+            box-shadow: 0 10px 28px rgba(60, 20, 100, 0.55);
+        }
+
+        /* Modal Leer Más */
+        #readMoreModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+        .read-more-content { background: linear-gradient(135deg, #2b0e3a 0%, #1a0f2b 100%); width: min(900px, 95vw); border-radius: 16px; padding: 24px; position: relative; border: 2px solid rgba(171, 90, 255, 0.45); box-shadow: 0 10px 28px rgba(60, 20, 100, 0.55); }
+        .read-more-close { position: absolute; right: 16px; top: 12px; font-size: 28px; cursor: pointer; color: #fff; }
+        .read-more-title { font-family: 'Bangers', cursive; font-size: 1.8rem; margin-bottom: 10px; color: #AB5AFF; }
+        .read-more-text { margin: 8px 0 16px; color: rgba(255,255,255,0.9); }
+        .read-more-image { width: 100%; max-height: 70vh; object-fit: contain; border-radius: 10px; }
+   
+         
+   
+
+   
+  
+
+
+
+  
+
+  
+        
+        
+        
+        
+        
+        
+        
+
+
+
+        
+
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+
+
+        /* Modal de Login */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: rgba(7, 7, 9, 0.95);
+            width: 450px;
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            border: 3px solid transparent;
+            border-image: linear-gradient(45deg, var(--primary), var(--naturales-neon)) 1;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            animation: modalAppear 0.5s ease;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content:hover {
+            transform: translateY(-5px);
+        }
+        
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.8) translateY(-50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+         .modal-close:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: transparent;
+            background: linear-gradient(45deg, var(--primary), var(--naturales-neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-family: 'Bangers', cursive;
+        }
+
+         .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+         .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(253, 131, 38, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .comic-footer {
+            background: rgba(7, 7, 9, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px 0 20px;
+            margin-top: 60px;
+            border-top: 3px solid transparent;
+            border-image: linear-gradient(90deg, 
+                var(--matematicas-light), 
+                var(--lengua-red), 
+                var(--sociales-turq), 
+                var(--naturales-neon)) 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+            justify-items: center;
+        }
+         .footer-column {
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Bangers', cursive;
+            display: inline-block;
+        }
+
+         .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--naturales-neon));
+            border-radius: 3px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-column li {
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+        }
+         .footer-column li:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-column a {
+            display: inline-block;
+            padding: 8px 15px;
+            position: relative;
+            width: 100%;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            background: rgba(253, 131, 38, 0.1);
+            color: var(--primary);
+        }
+        
+        .footer-column a::before {
+            content: '⚡';
+            position: absolute;
+            left: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .footer-column a:hover::before {
+            left: -15px;
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .footer-contact-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-contact-info p {
+            margin: 8px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .footer-contact-info i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+    
+    </style>
+</head>
+<body>
+
+    <div class="mouse-detection-zone" id="mouseDetectionZone"></div>
+    
+    <!-- Header completo -->
+    <header class="comic-header visible" id="mainHeader">
+        <div class="container main-header">
+           <img src="logo.jpg" alt="Logo" class="Logo">
+            
+            <div class="search-bar hover-float">
+                <input type="text" placeholder="Buscar contenido educativo...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="user-actions">
+                <div class="user-welcome" id="userWelcome">
+                    <i class="fas fa-user-graduate"></i>
+                    <span id="usernameDisplay">Estudiante</span>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+                <a href="#" class="sign-in hover-float" id="signInBtn"><i class="fas fa-user"></i> Iniciar Sesión</a>
+                <button class="btn btn-comic-creator hover-float" id="comicCreatorBtn">
+                    <i class="fas fa-pencil-alt"></i> CREAR CÓMIC
+                </button>
+            </div>
+        </div>
+
+        <nav class="comic-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="#inicio" class="hover-float nav-link" data-section="inicio"><i class="fas fa-home"></i> INICIO</a></li>
+                    <li class="dropdown">
+                        <a href="#matematicas" class="hover-float nav-link nav-matematicas" data-section="matematicas"><i class="fas fa-calculator"></i> MATEMÁTICAS <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#matematicas/estadisticas" class="nav-link" data-section="matematicas"><i class="fas fa-chart-bar"></i> Estadísticas</a></li>
+                            <li><a href="#matematicas/geometria" class="nav-link" data-section="matematicas"><i class="fas fa-shapes"></i> Geometría</a></li>
+                            <li><a href="#matematicas/algebra" class="nav-link" data-section="matematicas"><i class="fas fa-superscript"></i> Álgebra</a></li>
+                            <li><a href="#matematicas/aritmetica" class="nav-link" data-section="matematicas"><i class="fas fa-calculator"></i> Aritmética</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#lengua" class="hover-float nav-link nav-lengua" data-section="lengua"><i class="fas fa-book-open"></i> LENGUA <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#lengua/escritura" class="nav-link" data-section="lengua"><i class="fas fa-pen-fancy"></i> Escritura Creativa</a></li>
+                            <li><a href="#lengua/lectura" class="nav-link" data-section="lengua"><i class="fas fa-book-reader"></i> Lectura</a></li>
+                            <li><a href="#lengua/gramatica" class="nav-link" data-section="lengua"><i class="fas fa-spell-check"></i> Gramática</a></li>
+                            <li><a href="#lengua/concurso" class="nav-link" data-section="lengua"><i class="fas fa-trophy"></i> Concurso Literario</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#sociales" class="hover-float nav-link nav-sociales" data-section="sociales"><i class="fas fa-globe-americas"></i> SOCIALES <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#sociales/historia" class="nav-link" data-section="sociales"><i class="fas fa-landmark"></i> Historia</a></li>
+                            <li><a href="#sociales/cultura" class="nav-link" data-section="sociales"><i class="fas fa-theater-masks"></i> Cultura</a></li>
+                            <li><a href="#sociales/valores" class="nav-link" data-section="sociales"><i class="fas fa-handshake"></i> Valores</a></li>
+                            <li><a href="#sociales/mapa" class="nav-link" data-section="sociales"><i class="fas fa-map-marked-alt"></i> Mapa Interactivo</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#naturales" class="hover-float nav-link nav-naturales" data-section="naturales"><i class="fas fa-leaf"></i> NATURALES <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#naturales/ecologia" class="nav-link" data-section="naturales"><i class="fas fa-recycle"></i> Ecología</a></li>
+                            <li><a href="#naturales/cuerpo" class="nav-link" data-section="naturales"><i class="fas fa-heartbeat"></i> Cuerpo Humano</a></li>
+                            <li><a href="#naturales/experimentos" class="nav-link" data-section="naturales"><i class="fas fa-flask"></i> Experimentos</a></li>
+                            <li><a href="#naturales/energia" class="nav-link" data-section="naturales"><i class="fas fa-solar-panel"></i> Energías</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#galeria" class="hover-float nav-link" data-section="galeria"><i class="fas fa-images"></i> GALERÍA</a></li>
+                    <li><a href="#ranking" class="hover-float nav-link" data-section="ranking"><i class="fas fa-trophy"></i> RANKING</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+        
+<section class="welcome-video">
+  <div class="video-hero">
+    <video class="video-bg" src="Video pantalla principal.mp4" autoplay muted loop playsinline></video>
+    <div class="video-hero-content">
+      <h2 class="video-hero-title">Bienvenidos a la Historia</h2>
+      <p class="video-hero-sub">Explora el pasado para entender el presente y construir el futuro.</p>
+    </div>
+  </div>
+  
+</section>
+
+<!-- Línea del tiempo: Historia Dominicana -->
+<section id="timeline">
+  <div class="timeline-wrap">
+    <h2 class="timeline-title">Línea del tiempo – Historia Dominicana</h2>
+    <svg class="timeline-svg" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" aria-labelledby="tlTitle" role="img">
+      <title id="tlTitle">Línea del tiempo interactiva de Historia Dominicana</title>
+      <!-- Curva elegante -->
+      <defs>
+        <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6"/>
+          <stop offset="50%" stop-color="#f59e0b"/>
+          <stop offset="100%" stop-color="#ef4444"/>
+        </linearGradient>
+      </defs>
+      <path d="M40,250 C 240,120 420,320 620,180 C 820,40 980,260 1160,140" fill="none" stroke="url(#pathGrad)" stroke-width="6" stroke-linecap="round"/>
+
+      <!-- Nodos de eventos: posiciones aproximadas a lo largo de la curva -->
+      <!-- Llegada de Colón (1492) -->
+      <g class="tl-node" data-x="140" data-y="210" data-title="Llegada de Colón (1492)" data-text="Cristóbal Colón llega a la isla, marcando el inicio del contacto europeo." data-color="#f43f5e" data-icon="fa-solid fa-ship">
+        <circle cx="140" cy="210" r="16" fill="#f43f5e"/>
+        <text x="140" y="182" text-anchor="middle" class="tl-label">Llegada de Colón</text>
+        <text x="140" y="232" text-anchor="middle" class="tl-year">1492</text>
+      </g>
+      <!-- Fundación de Santo Domingo (1498) -->
+      <g class="tl-node" data-x="340" data-y="200" data-title="Fundación de Santo Domingo (1498)" data-text="Se establece una de las primeras ciudades europeas en América." data-color="#3b82f6" data-icon="fa-solid fa-landmark">
+        <circle cx="340" cy="200" r="16" fill="#3b82f6"/>
+        <text x="340" y="172" text-anchor="middle" class="tl-label">Santo Domingo</text>
+        <text x="340" y="222" text-anchor="middle" class="tl-year">1498</text>
+      </g>
+      <!-- Independencia (1844) -->
+      <g class="tl-node" data-x="600" data-y="190" data-title="Independencia Dominicana (1844)" data-text="Proclamación del 27 de febrero: nace la República Dominicana." data-color="#f59e0b" data-icon="fa-solid fa-flag">
+        <circle cx="600" cy="190" r="16" fill="#f59e0b"/>
+        <text x="600" y="162" text-anchor="middle" class="tl-label">Independencia</text>
+        <text x="600" y="212" text-anchor="middle" class="tl-year">1844</text>
+      </g>
+      <!-- Restauración (1863–1865) -->
+      <g class="tl-node" data-x="820" data-y="120" data-title="Guerra de la Restauración (1863–1865)" data-text="Lucha que devuelve la soberanía dominicana tras la anexión." data-color="#10b981" data-icon="fa-solid fa-fire">
+        <circle cx="820" cy="120" r="16" fill="#10b981"/>
+        <text x="820" y="92" text-anchor="middle" class="tl-label">Restauración</text>
+        <text x="820" y="142" text-anchor="middle" class="tl-year">1863–1865</text>
+      </g>
+      <!-- Ocupación estadounidense (1916–1924) -->
+      <g class="tl-node" data-x="1040" data-y="160" data-title="Ocupación estadounidense (1916–1924)" data-text="Intervención militar de EE. UU. en la República Dominicana." data-color="#6366f1" data-icon="fa-solid fa-helmet-safety">
+        <circle cx="1040" cy="160" r="16" fill="#6366f1"/>
+        <text x="1040" y="132" text-anchor="middle" class="tl-label">Ocupación EE. UU.</text>
+        <text x="1040" y="182" text-anchor="middle" class="tl-year">1916–1924</text>
+      </g>
+    </svg>
+
+    <!-- Tooltip dinámico -->
+    <div id="tlTooltip" class="tl-tooltip" role="dialog" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="hero">
+    <div class="hero-text">
+    
+    </div>
+
+</section>
+
+
+ 
+   
+ 
+
+<!-- Carrusel de tarjetas - Sociales -->
+<section id="sociales-carrusel">
+  <button class="carousel-arrow prev" id="carouselPrev" aria-label="Anterior">&#10094;</button>
+  <div class="cards-carousel" id="cardsCarousel">
+    <article class="comic-card purple">
+      <img src="Portada de viajeros en el tiempo.png" alt="Portada: Viajeros del Tiempo en la Era de Trujillo">
+      <h3>Viajeros del Tiempo en... ¡La Era de Trujillo!</h3>
+      <p>Dos estudiantes viajan al pasado y descubren cómo la historia de una dictadura marcó a un país. Entender el pasado nos ayuda a construir un mejor futuro.</p>
+      <button class="btn btn-leer-mas" 
+              data-title="Viajeros del Tiempo en... ¡La Era de Trujillo!"
+              
+              data-image="Comic de viajeros en el tiempo.png">
+        Leer más
+      </button>
+    </article>
+    <article class="comic-card purple">
+      <img src="Portada de la independencia.png" alt="Portada: Independencia Dominicana">
+      <h3>Independencia Dominicana</h3>
+      <p>Un vistazo a los ideales de libertad y valentía que dieron origen a la nación. Conoce a sus protagonistas y el contexto que hizo posible la independencia.</p>
+      <button class="btn btn-leer-mas"
+              
+              data-image="Comic de la independencia.png">
+        Leer más
+      </button>
+    </article>
+    <article class="comic-card purple">
+      <img src="Portada viaje a la restauracion.png" alt="Portada: Viaje a la Restauración">
+      <h3>Viaje a la Restauración</h3>
+      <p>Descubre cómo la Restauración devolvió la soberanía y el espíritu de lucha del pueblo dominicano.</p>
+      <button class="btn btn-leer-mas"
+              
+              data-image="Comic viaje a la restauracion.png">
+        Leer más
+      </button>
+    </article>
+    <article class="comic-card purple">
+      <img src="Portada de los tainos.png" alt="Portada: Los Taínos - Cultura y Legado">
+      <h3>Los Taínos: Cultura y Legado</h3>
+      <p>Conoce la vida cotidiana, creencias y aportes de los primeros habitantes de la isla: su arte, mitos y relación con la naturaleza.</p>
+      <button class="btn btn-leer-mas"
+              data-title="Los Taínos: Cultura y Legado"
+              data-text="Descubre su organización social, sus dioses como Yúcahu y Atabey, los bateyes y el arte del cemí."
+              data-image="Comic de tainos.png">
+        Leer más
+      </button>
+    </article>
+    <article class="comic-card purple">
+      <img src="Portada de la constitucion.png" alt="Portada: Constitución de 1844">
+      <h3>Constitución de 1844</h3>
+      <p>Un recorrido por la primera Constitución dominicana: sus principios, debates y su impacto en la formación del Estado.</p>
+      <button class="btn btn-leer-mas"
+              data-title="Constitución de 1844"
+              data-text="Explora los derechos, la separación de poderes y el contexto político que dio forma a la carta magna."
+              data-image="Comic de la constitucion.png">
+        Leer más
+      </button>
+    </article>
+  </div>
+  <button class="carousel-arrow next" id="carouselNext" aria-label="Siguiente">&#10095;</button>
+</section>
+
+<!-- Sección: Quizz (Verdadero/Falso) -->
+<section id="quizz" style="padding: 20px 40px;">
+  <h2 style="font-family: 'Bangers', cursive; color:#AB5AFF; margin-bottom:12px;">Quizz – Historia Dominicana</h2>
+  <div class="quiz-card" style="background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:16px; max-width:720px;">
+    <div id="quizQuestion" style="font-size:1.05rem; margin-bottom:12px;">Cargando pregunta…</div>
+    <div class="quiz-actions" style="display:flex; gap:10px;">
+      <button id="btnTrue" class="btn">Verdadero</button>
+      <button id="btnFalse" class="btn" style="background:linear-gradient(45deg,#ff3b3b,#b81414)">Falso</button>
+    </div>
+    <div id="quizFeedback" style="margin-top:12px; font-weight:600;"></div>
+  </div>
+</section>
+
+<!-- Modal Leer Más -->
+<div id="readMoreModal">
+  <div class="read-more-content">
+    <span class="read-more-close" id="readMoreClose">&times;</span>
+    <h3 class="read-more-title" id="readMoreTitle"></h3>
+    <p class="read-more-text" id="readMoreText"></p>
+    <img class="read-more-image" id="readMoreImage" src="" alt="Comic - Leer más">
+  </div>
+</div>
+
+<footer class="comic-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MATERIAS</h3>
+                    <ul>
+                        <li><a href="#matematicas" class="nav-link" data-section="matematicas"><i class="fas fa-calculator"></i> Matemáticas</a></li>
+                        <li><a href="#lengua" class="nav-link" data-section="lengua"><i class="fas fa-book-open"></i> Lengua Española</a></li>
+                        <li><a href="#sociales" class="nav-link" data-section="sociales"><i class="fas fa-globe-americas"></i> Ciencias Sociales</a></li>
+                        <li><a href="#naturales" class="nav-link" data-section="naturales"><i class="fas fa-leaf"></i> Ciencias Naturales</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>CONTACTO</h3>
+                   <ul>
+                        <li><a href="#" class="social-link"><i class="fab fa-facebook-f"></i> Toonswitch_17</a></li>
+                        <li><a href="#" class="social-link"><i class="fab fa-instagram"></i> Toonswitch_</a></li>
+                       
+                    </ul>
+                    <div class="footer-contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Portal Educativo Digital</p>
+                        <p><i class="fas fa-envelope"></i> toonswitch@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> +34 123 456 789</p>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="footer-bottom">
+                <p>EDUCÓMIC™ & © 2024 Portal Educativo Digital. Todos los derechos reservados.</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">
+                    <a href="#" style="color: var(--primary);">Política de Privacidad</a> | 
+                    <a href="#" style="color: var(--primary);">Términos de Uso</a> | 
+                    <a href="#" style="color: var(--primary);">Mapa del Sitio</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+     <div class="modal" id="loginModal">
+        <div class="modal-content hover-float">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <h2 class="modal-title">ACCESO AL PORTAL</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="estudiante@educomic.org" required>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-key"></i> Contraseña</label>
+                    <input type="password" id="password" placeholder="Tu contraseña" required>
+                </div>
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Nombre de Usuario</label>
+                    <input type="text" id="username" placeholder="Como te llamaremos" required>
+                </div>
+                <button type="submit" class="btn hover-float" style="width: 100%;">
+                    <i class="fas fa-rocket"></i> Acceder al Portal
+                </button>
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="#" id="forgotPassword"><i class="fas fa-question-circle"></i> ¿Olvidaste tu contraseña?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</body>
+<script>
+ 
+// Sistema de login/logout
+        const signInBtn = document.getElementById('signInBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const userWelcome = document.getElementById('userWelcome');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginForm = document.getElementById('loginForm');
+        const forgotPassword = document.getElementById('forgotPassword');
+        
+        
+        
+
+         let currentUser = null;
+
+// Función para actualizar la interfaz
+function updateUserInterface() {
+    if (currentUser) {
+        userWelcome.style.display = 'flex';
+        signInBtn.style.display = 'none';
+        usernameDisplay.textContent = currentUser.username;
+    } else {
+        userWelcome.style.display = 'none';
+        signInBtn.style.display = 'block';
+    }
+}
+
+// Verificar si hay usuario guardado al cargar la página
+function checkLoggedInUser() {
+    const savedUser = localStorage.getItem('toonswitchUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUserInterface();
+    }
+}
+
+// Ejecutar al cargar
+checkLoggedInUser();
+
+// Abrir modal login
+signInBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginModal.style.display = 'flex';
+});
+
+// Cerrar modal login
+closeModal.addEventListener('click', () => {
+    loginModal.style.display = 'none';
+});
+
+// Manejo del formulario de login
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const username = document.getElementById('username').value.trim();
+
+    if (!email || !password || !username) {
+        alert('Por favor completa todos los campos');
+        return;
+    }
+
+    // Simular login
+    const submitBtn = loginForm.querySelector('.btn');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Accediendo...';
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+        // Guardar usuario en localStorage con el nombre ingresado
+        currentUser = {
+            email: email,
+            username: username,
+            joinDate: new Date().toISOString()
+        };
+        localStorage.setItem('toonswitchUser', JSON.stringify(currentUser));
+
+        // Actualizar interfaz
+        updateUserInterface();
+
+        // Cerrar modal y limpiar formulario
+        loginModal.style.display = 'none';
+        loginForm.reset();
+        submitBtn.innerHTML = '<i class="fas fa-rocket"></i> Acceder al Portal';
+        submitBtn.disabled = false;
+
+        alert(`¡Bienvenido a Toonswitch, ${username}! Ahora puedes crear tus propios cómics educativos.`);
+    }, 1500);
+});
+
+// Logout
+logoutBtn.addEventListener('click', () => {
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        currentUser = null;
+        localStorage.removeItem('toonswitchUser');
+        updateUserInterface();
+        alert('Has cerrado sesión correctamente. ¡Vuelve pronto!');
+    }
+});
+
+// Olvidé mi contraseña
+forgotPassword.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Se ha enviado un correo para restablecer tu contraseña. (Funcionalidad simulada)');
+});
+
+
+  // "Leer más" modal handlers
+  const readMoreModal = document.getElementById('readMoreModal');
+  const readMoreTitle = document.getElementById('readMoreTitle');
+  const readMoreText  = document.getElementById('readMoreText');
+  const readMoreImage = document.getElementById('readMoreImage');
+  const readMoreClose = document.getElementById('readMoreClose');
+
+  document.querySelectorAll('.btn-leer-mas').forEach(btn => {
+    btn.addEventListener('click', () => {
+      readMoreTitle.textContent = btn.dataset.title || '';
+      readMoreText.textContent  = btn.dataset.text || '';
+      readMoreImage.src         = btn.dataset.image || '';
+      readMoreModal.style.display = 'flex';
+    });
+  });
+
+  readMoreClose?.addEventListener('click', () => {
+    readMoreModal.style.display = 'none';
+  });
+  window.addEventListener('click', (e) => {
+    if (e.target === readMoreModal) readMoreModal.style.display = 'none';
+  });
+
+  // Controles de carrusel (flechas)
+  const carouselEl = document.getElementById('cardsCarousel');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  if (carouselEl && prevBtn && nextBtn) {
+    const getStep = () => {
+      const firstCard = carouselEl.querySelector('.comic-card');
+      const cardWidth = firstCard ? firstCard.offsetWidth : 340;
+      const gap = 20; // definido en CSS
+      return cardWidth + gap;
+    };
+    prevBtn.addEventListener('click', () => {
+      carouselEl.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      carouselEl.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+  }
+  // Descarga eliminada a solicitud del usuario
+
+  // Quizz: Verdadero/Falso – Historia Dominicana
+  (function initQuizz(){
+    const qEl = document.getElementById('quizQuestion');
+    const fbEl = document.getElementById('quizFeedback');
+    const btnT = document.getElementById('btnTrue');
+    const btnF = document.getElementById('btnFalse');
+    const quizCard = document.querySelector('#quizz .quiz-card');
+    if (!qEl || !btnT || !btnF) return;
+
+    const pool = [
+      {q:'La independencia dominicana se proclamó el 27 de febrero de 1844.', a:true},
+      {q:'La Trinitaria fue fundada por Juan Pablo Duarte en 1838.', a:true},
+      {q:'La independencia se proclamó en la Puerta del Conde.', a:true},
+      {q:'Pedro Santana se opuso a la anexión a España.', a:false},
+      {q:'El “Grito de Capotillo” inició la Restauración en 1863.', a:true},
+      {q:'La Restauración terminó en 1865 con el retorno de la soberanía.', a:true},
+      {q:'La Batalla del 19 de marzo (1844) fue en Azua.', a:true},
+      {q:'La Batalla del 30 de marzo (1844) fue en La Vega.', a:false},
+      {q:'La primera Constitución dominicana fue en San Cristóbal (1844).', a:true},
+      {q:'Rafael L. Trujillo gobernó de 1930 a 1961.', a:true},
+      {q:'Juan Bosch fue elegido presidente en 1962.', a:true},
+      {q:'La ocupación haitiana duró de 1822 a 1844.', a:true},
+      {q:'Concepción Bona ayudó a confeccionar la primera bandera nacional.', a:true},
+      {q:'María Trinidad Sánchez fue ejecutada en 1845.', a:true},
+      {q:'Ulises Heureaux “Lilís” gobernó democráticamente 30 años.', a:false}
+    ];
+
+    let current = null;
+    function nextQuestion(){
+      const rand = Math.floor(Math.random()*pool.length);
+      current = pool[rand];
+      qEl.textContent = current.q;
+      fbEl.textContent='';
+      fbEl.className='';
+    }
+    function answer(val){
+      const ok = current && current.a === val;
+      fbEl.textContent = ok ? '¡Correcto!' : (current.a ? 'Incorrecto: era Verdadero.' : 'Incorrecto: era Falso.');
+      fbEl.className = ok ? 'quiz-correct' : 'quiz-incorrect';
+      // feedback visual
+      if (quizCard) {
+        quizCard.classList.remove('flash-correct','flash-incorrect','shake');
+        quizCard.classList.add(ok ? 'flash-correct' : 'flash-incorrect');
+        if (!ok) quizCard.classList.add('shake');
+        setTimeout(()=>quizCard.classList.remove('flash-correct','flash-incorrect','shake'), 500);
+      }
+      setTimeout(nextQuestion, 900);
+    }
+    btnT?.addEventListener('click', ()=>answer(true));
+    btnF?.addEventListener('click', ()=>answer(false));
+    nextQuestion();
+
+    // Gestos de swipe en la tarjeta
+    if (quizCard) {
+      let startX = 0;
+      let dragging = false;
+      const threshold = 60; // px para decidir respuesta
+      const resetTransform = () => { quizCard.style.transform = ''; quizCard.style.backgroundColor=''; };
+
+      const onStart = (x) => { dragging = true; startX = x; fbEl.textContent=''; fbEl.className=''; };
+      const onMove = (x) => {
+        if (!dragging) return;
+        const dx = x - startX;
+        const tilt = Math.max(-10, Math.min(10, dx/10));
+        quizCard.style.transform = `translateX(${dx}px) rotate(${tilt}deg)`;
+        // color guía: derecha verde, izquierda rojo
+        const alpha = Math.min(0.25, Math.abs(dx)/240);
+        quizCard.style.backgroundColor = dx > 0 ? `rgba(74,222,128,${alpha})` : `rgba(255,107,107,${alpha})`;
+      };
+      const onEnd = (x) => {
+        if (!dragging) return; dragging = false;
+        const dx = x - startX;
+        resetTransform();
+        if (dx > threshold) return answer(true);
+        if (dx < -threshold) return answer(false);
+        // sin decisión, pequeña vibración
+        quizCard.classList.add('shake');
+        setTimeout(()=>quizCard.classList.remove('shake'), 200);
+      };
+
+      // Mouse
+      quizCard.addEventListener('mousedown', (e)=> onStart(e.clientX));
+      window.addEventListener('mousemove', (e)=> onMove(e.clientX));
+      window.addEventListener('mouseup', (e)=> onEnd(e.clientX));
+      // Touch
+      quizCard.addEventListener('touchstart', (e)=> onStart(e.touches[0].clientX), {passive:true});
+      quizCard.addEventListener('touchmove', (e)=> onMove(e.touches[0].clientX), {passive:true});
+      quizCard.addEventListener('touchend', (e)=> onEnd((e.changedTouches&&e.changedTouches[0]?.clientX)||startX));
+    }
+  })();
+
+  // Timeline interactivity
+  (function initTimeline(){
+    const wrap = document.querySelector('#timeline .timeline-wrap');
+    const tooltip = document.getElementById('tlTooltip');
+    if (!wrap || !tooltip) return;
+    const nodes = wrap.querySelectorAll('.tl-node');
+
+    function showTooltip(node){
+      const title = node.getAttribute('data-title') || '';
+      const text  = node.getAttribute('data-text')  || '';
+      const color = node.getAttribute('data-color') || '#333';
+      const icon  = node.getAttribute('data-icon')  || '';
+      const x = parseFloat(node.getAttribute('data-x'));
+      const y = parseFloat(node.getAttribute('data-y'));
+      // Position tooltip relative to svg
+      const svg = wrap.querySelector('.timeline-svg');
+      const rect = svg.getBoundingClientRect();
+      tooltip.style.left = (rect.left + x) + 'px';
+      tooltip.style.top  = (rect.top + y) + 'px';
+      tooltip.innerHTML = `<div style="display:flex; align-items:center; gap:8px; font-weight:700; color:${color}">`+
+        `<i class="${icon} tl-icon" style="color:${color}"></i><span>${title}</span></div>`+
+        `<div style="margin-top:6px; font-size:.95rem; line-height:1.25;">${text}</div>`;
+      tooltip.classList.add('show');
+    }
+    function hideTooltip(){ tooltip.classList.remove('show'); }
+
+    nodes.forEach(n=>{
+      n.addEventListener('mouseenter', ()=> showTooltip(n));
+      n.addEventListener('mouseleave', hideTooltip);
+      n.addEventListener('click', ()=> showTooltip(n));
+    });
+    window.addEventListener('scroll', ()=> tooltip.classList.remove('show'));
+    window.addEventListener('resize', ()=> tooltip.classList.remove('show'));
+  })();
+
+  // Reubicar la línea del tiempo debajo del quizz
+  (function placeTimelineAfterQuiz(){
+    const tl = document.getElementById('timeline');
+    const qz = document.getElementById('quizz');
+    if (tl && qz && tl.previousElementSibling !== qz) {
+      qz.after(tl);
+    }
+  })();
+</script>
+</html>
+
